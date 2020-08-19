@@ -7,12 +7,12 @@ const PeekableLexer = require('moo-peekable-lexer');
 // Create a mooLexer from rules
 const mooLexer = moo.compile({ ... })
 // Create a peekable lexer using the Moo lexer
-const peekableLexer = new PeekableLexer({ mooLexer });
+const lexer = new PeekableLexer({ lexer: mooLexer });
 
 // Specify the data
-peekableLexer.reset('...')
+lexer.reset('...')
 
 // In addition to the normal Moo methods, peek is available
-peekableLexer.peek()
-peekableLexer.next()
+lexer.peek()
+lexer.next()
 ```
