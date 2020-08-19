@@ -1,10 +1,10 @@
 const moo = require('moo');
-const PeekLexer = require('./');
+const PeekableLexer = require('./');
 
-describe('PeekLexer', () => {
+describe('PeekableLexer', () => {
 
-    it('runs on example input', () => {
-        const lexer = moo.compile({
+    it('runs on Moo example input', () => {
+        const mooLexer = moo.compile({
             WS:      /[ \t]+/,
             comment: /\/\/.*?$/,
             number:  /0|[1-9][0-9]*/,
@@ -14,24 +14,24 @@ describe('PeekLexer', () => {
             keyword: ['while', 'if', 'else', 'moo', 'cows'],
             NL:      { match: /\n/, lineBreaks: true },
         })
-        const peekLexer = new PeekLexer({ lexer });
+        const peekableLexer = new PeekableLexer({ mooLexer });
 
-        peekLexer.reset('while (10) cows\nmoo')
+        peekableLexer.reset('while (10) cows\nmoo')
 
-        expect(peekLexer.next().text).toBe('while');
-        expect(peekLexer.peek().text).toBe(' ');
-        expect(peekLexer.next().text).toBe(' ');
-        expect(peekLexer.next().text).toBe('(');
-        expect(peekLexer.next().text).toBe('10');
-        expect(peekLexer.next().text).toBe(')');
-        expect(peekLexer.next().text).toBe(' ');
-        expect(peekLexer.next().text).toBe('cows');
-        expect(peekLexer.next().text).toBe('\n');
-        expect(peekLexer.peek().text).toBe('moo');
-        expect(peekLexer.next().text).toBe('moo');
-        expect(peekLexer.peek()).toBe(undefined);
-        expect(peekLexer.next()).toBe(undefined);
-        expect(peekLexer.peek()).toBe(undefined);
-        expect(peekLexer.next()).toBe(undefined);
+        expect(peekableLexer.next().text).toBe('while');
+        expect(peekableLexer.peek().text).toBe(' ');
+        expect(peekableLexer.next().text).toBe(' ');
+        expect(peekableLexer.next().text).toBe('(');
+        expect(peekableLexer.next().text).toBe('10');
+        expect(peekableLexer.next().text).toBe(')');
+        expect(peekableLexer.next().text).toBe(' ');
+        expect(peekableLexer.next().text).toBe('cows');
+        expect(peekableLexer.next().text).toBe('\n');
+        expect(peekableLexer.peek().text).toBe('moo');
+        expect(peekableLexer.next().text).toBe('moo');
+        expect(peekableLexer.peek()).toBe(undefined);
+        expect(peekableLexer.next()).toBe(undefined);
+        expect(peekableLexer.peek()).toBe(undefined);
+        expect(peekableLexer.next()).toBe(undefined);
     });
 })

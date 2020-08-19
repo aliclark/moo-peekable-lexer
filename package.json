@@ -1,8 +1,8 @@
 {
-  "name": "moo-peek-lexer",
+  "name": "moo-peekable-lexer",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:aliclark/moo-peek-lexer.git",
+  "repository": "git@github.com:aliclark/moo-peekable-lexer.git",
   "author": "Ali Clark",
   "license": "MIT",
   "scripts": {

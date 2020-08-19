@@ -2,17 +2,17 @@
 ## Usage
 ```js
 const moo = require('moo');
-const PeekLexer = require('moo-peek-lexer');
+const PeekableLexer = require('moo-peekable-lexer');
 
-// Create a lexer from rules
-const lexer = moo.compile({ ... })
-// Create a peek-able lexer using the Moo lexer
-const peekLexer = new PeekLexer({ lexer });
+// Create a mooLexer from rules
+const mooLexer = moo.compile({ ... })
+// Create a peekable lexer using the Moo lexer
+const peekableLexer = new PeekableLexer({ mooLexer });
 
 // Specify the data
-peekLexer.reset('...')
+peekableLexer.reset('...')
 
 // In addition to the normal Moo methods, peek is available
-peekLexer.peek()
-peekLexer.next()
+peekableLexer.peek()
+peekableLexer.next()
 ```

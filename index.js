@@ -14,16 +14,16 @@ class LexerIterator {
     }
 }
 
-class PeekLexer {
-    constructor({ lexer, queuedToken, initialized }) {
-        this._lexer = lexer
+class PeekableLexer {
+    constructor({ mooLexer, queuedToken, initialized }) {
+        this._mooLexer = mooLexer
         this._queuedToken = queuedToken || null
         this._initialized = initialized || false
     }
 
     _initialize() {
         if (!this._initialized) {
-            this._queuedToken = this._lexer.next()
+            this._queuedToken = this._mooLexer.next()
             this._initialized = true
         }
     }
@@ -31,27 +31,27 @@ class PeekLexer {
     reset(data, info) {
         this._queuedToken = info ? info.queuedToken : null
         this._initialized = info ? !!info.initialized : false
-        return this._lexer.reset(data, info && info.lexerInfo)
+        return this._mooLexer.reset(data, info && info.mooLexerInfo)
     }
 
     save() {
         return {
             queuedToken: this._queuedToken,
             initialized: this._initialized,
-            lexerInfo: this._lexer.save()
+            mooLexerInfo: this._mooLexer.save()
         }
     }
 
     setState(state) {
-        return this._lexer.setState(state)
+        return this._mooLexer.setState(state)
     }
 
     popState() {
-        return this._lexer.popState()
+        return this._mooLexer.popState()
     }
 
     pushState(state) {
-        return this._lexer.pushState(state)
+        return this._mooLexer.pushState(state)
     }
 
     peek() {
@@ -62,7 +62,7 @@ class PeekLexer {
     next() {
         this._initialize()
         const token = this._queuedToken
-        this._queuedToken = this._lexer.next()
+        this._queuedToken = this._mooLexer.next()
         return token
     }
 
@@ -71,19 +71,19 @@ class PeekLexer {
     }
 
     formatError(token, message) {
-        return this._lexer.formatError(token, message)
+        return this._mooLexer.formatError(token, message)
     }
 
     clone() {
-        const lexer = this._lexer.clone()
+        const mooLexer = this._mooLexer.clone()
         const queuedToken = this._queuedToken
         const initialized = this._initialized
-        return new PeekLexer({ lexer, queuedToken, initialized })
+        return new PeekableLexer({ mooLexer, queuedToken, initialized })
     }
 
     has(tokenType) {
-        return this._lexer.has(tokenType)
+        return this._mooLexer.has(tokenType)
     }
 }
 
-module.exports = PeekLexer;
+module.exports = PeekableLexer;
