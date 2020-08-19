@@ -1,4 +1,4 @@
-# moo-peek-lexer
+# moo-peekable-lexer
 ## Usage
 ```js
 const moo = require('moo');
