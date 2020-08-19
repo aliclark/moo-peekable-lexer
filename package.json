@@ -1,0 +1,15 @@
+{
+  "name": "moo-peek-lexer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:aliclark/moo-peek-lexer.git",
+  "author": "Ali Clark",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^26.4.0",
+    "moo": "^0.5.1"
+  }
+}
