@@ -1,5 +1,5 @@
-const moo = require('moo');
-const PeekableLexer = require('./');
+const moo = require('moo')
+const PeekableLexer = require('./')
 
 describe('PeekableLexer', () => {
 
@@ -14,24 +14,24 @@ describe('PeekableLexer', () => {
             keyword: ['while', 'if', 'else', 'moo', 'cows'],
             NL:      { match: /\n/, lineBreaks: true },
         })
-        const lexer = new PeekableLexer({ lexer: mooLexer });
+        const lexer = new PeekableLexer({ lexer: mooLexer })
 
         lexer.reset('while (10) cows\nmoo')
 
-        expect(lexer.next().text).toBe('while');
-        expect(lexer.peek().text).toBe(' ');
-        expect(lexer.next().text).toBe(' ');
-        expect(lexer.next().text).toBe('(');
-        expect(lexer.next().text).toBe('10');
-        expect(lexer.next().text).toBe(')');
-        expect(lexer.next().text).toBe(' ');
-        expect(lexer.next().text).toBe('cows');
-        expect(lexer.next().text).toBe('\n');
-        expect(lexer.peek().text).toBe('moo');
-        expect(lexer.next().text).toBe('moo');
-        expect(lexer.peek()).toBe(undefined);
-        expect(lexer.next()).toBe(undefined);
-        expect(lexer.peek()).toBe(undefined);
-        expect(lexer.next()).toBe(undefined);
-    });
+        expect(lexer.next().text).toBe('while')
+        expect(lexer.peek().text).toBe(' ')
+        expect(lexer.next().text).toBe(' ')
+        expect(lexer.next().text).toBe('(')
+        expect(lexer.next().text).toBe('10')
+        expect(lexer.next().text).toBe(')')
+        expect(lexer.next().text).toBe(' ')
+        expect(lexer.next().text).toBe('cows')
+        expect(lexer.next().text).toBe('\n')
+        expect(lexer.peek().text).toBe('moo')
+        expect(lexer.next().text).toBe('moo')
+        expect(lexer.peek()).toBe(undefined)
+        expect(lexer.next()).toBe(undefined)
+        expect(lexer.peek()).toBe(undefined)
+        expect(lexer.next()).toBe(undefined)
+    })
 })
