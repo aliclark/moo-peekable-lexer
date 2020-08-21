@@ -15,29 +15,19 @@ class LexerIterator {
 }
 
 class PeekableLexer {
-    constructor({ lexer, queuedToken, initialized }) {
+    constructor({ lexer, queuedToken }) {
         this._lexer = lexer
         this._queuedToken = queuedToken || null
-        this._initialized = initialized || false
-    }
-
-    _initialize() {
-        if (!this._initialized) {
-            this._queuedToken = this._lexer.next()
-            this._initialized = true
-        }
     }
 
     reset(data, info) {
         this._queuedToken = info ? info.queuedToken : null
-        this._initialized = info ? !!info.initialized : false
         return this._lexer.reset(data, info && info.lexerInfo)
     }
 
     save() {
         return {
             queuedToken: this._queuedToken,
-            initialized: this._initialized,
             lexerInfo: this._lexer.save()
         }
     }
@@ -55,15 +45,19 @@ class PeekableLexer {
     }
 
     peek() {
-        this._initialize()
+        if (!this._queuedToken) {
+            this._queuedToken = this.next()
+        }
         return this._queuedToken
     }
 
     next() {
-        this._initialize()
-        const token = this._queuedToken
-        this._queuedToken = this._lexer.next()
-        return token
+        if (this._queuedToken) {
+            const token = this._queuedToken
+            this._queuedToken = null
+            return token
+        }
+        return this._lexer.next()
     }
 
     [Symbol.iterator]() {
@@ -77,8 +71,7 @@ class PeekableLexer {
     clone() {
         const lexer = this._lexer.clone()
         const queuedToken = this._queuedToken
-        const initialized = this._initialized
-        return new PeekableLexer({ lexer, queuedToken, initialized })
+        return new PeekableLexer({ lexer, queuedToken })
     }
 
     has(tokenType) {
@@ -86,4 +79,4 @@ class PeekableLexer {
     }
 }
 
-module.exports = PeekableLexer;
+module.exports = PeekableLexer
