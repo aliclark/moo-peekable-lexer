@@ -6,7 +6,8 @@
   "author": "Ali Clark",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "prepublish": "yarn test"
   },
   "devDependencies": {
     "jest": "^26.4.0",
